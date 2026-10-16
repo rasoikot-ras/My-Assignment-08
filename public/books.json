@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "description": "A Handbook of Agile Software Craftsmanship focusing on clean code.",
+    "category": "Tech",
+    "available_quantity": 5,
+    "image_url": "https://images.unsplash.com/photo-1532012197267-da84d127e765"
+  },
+  {
+    "id": "2",
+    "title": "Astrophysics for People in a Hurry",
+    "author": "Neil deGrasse Tyson",
+    "description": "An essential guide to the universe, mind-expanding and easy to understand.",
+    "category": "Science",
+    "available_quantity": 3,
+    "image_url": "https://images.unsplash.com/photo-1507842217343-583bb7270b66"
+  },
+  {
+    "id": "3",
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "description": "A magical story about following your dreams and listening to your heart.",
+    "category": "Story",
+    "available_quantity": 8,
+    "image_url": "https://images.unsplash.com/photo-1544947950-fa07a98d237f"
+  },
+  {
+    "id": "4",
+    "title": "You Don't Know JS Yet",
+    "author": "Kyle Simpson",
+    "description": "Deep dive into the core mechanisms of the JavaScript language.",
+    "category": "Tech",
+    "available_quantity": 4,
+    "image_url": "https://images.unsplash.com/photo-1516979187457-637abb4f9353"
+  },
+  {
+    "id": "5",
+    "title": "A Brief History of Time",
+    "author": "Stephen Hawking",
+    "description": "Explores fundamental questions about cosmology, black holes, and time.",
+    "category": "Science",
+    "available_quantity": 2,
+    "image_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa"
+  },
+  {
+    "id": "6",
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "description": "A classic story of racial injustice and the destruction of innocence.",
+    "category": "Story",
+    "available_quantity": 6,
+    "image_url": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e"
+  },
+  {
+    "id": "7",
+    "title": "Refactoring",
+    "author": "Martin Fowler",
+    "description": "Improving the Design of Existing Code through structured refactoring techniques.",
+    "category": "Tech",
+    "available_quantity": 3,
+    "image_url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5"
+  },
+  {
+    "id": "8",
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "description": "Explores how Homo sapiens conquered the earth and shaped human history.",
+    "category": "Science",
+    "available_quantity": 7,
+    "image_url": "https://images.unsplash.com/photo-1461360370896-922624d12aa1"
+  },
+  {
+    "id": "9",
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "description": "The enchanting journey of a young wizard discovering his destiny.",
+    "category": "Story",
+    "available_quantity": 10,
+    "image_url": "https://images.unsplash.com/photo-1626618012641-bfbca5a31239"
+  },
+  {
+    "id": "10",
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "description": "The definitive guide to architecture, reliable data processing, and scaling.",
+    "category": "Tech",
+    "available_quantity": 4,
+    "image_url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c"
+  },
+  {
+    "id": "11",
+    "title": "The Selfish Gene",
+    "author": "Richard Dawkins",
+    "description": "A landmark work on evolution placing gene-centered perspective at the heart.",
+    "category": "Science",
+    "available_quantity": 2,
+    "image_url": "https://images.unsplash.com/photo-1530210124550-912dc1381cb8"
+  },
+  {
+    "id": "12",
+    "title": "1984",
+    "author": "George Orwell",
+    "description": "A dystopian masterpiece exploring totalitarianism and surveillance.",
+    "category": "Story",
+    "available_quantity": 5,
+    "image_url": "https://images.unsplash.com/photo-1512820790803-83ca734da794"
+  }
+]
