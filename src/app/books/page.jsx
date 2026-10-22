@@ -23,6 +23,7 @@ export default function AllBooksPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* Search Bar */}
       <div className="mb-8 flex justify-center">
         <input
           type="text"
@@ -34,6 +35,7 @@ export default function AllBooksPage() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
+        {/* Category Sidebar */}
         <aside className="w-full md:w-1/4 bg-gray-50 p-4 rounded-lg h-fit border">
           <h3 className="font-bold text-base mb-4">Categories</h3>
           <ul className="space-y-2 text-sm">
@@ -52,6 +54,7 @@ export default function AllBooksPage() {
           </ul>
         </aside>
 
+        {/* Book Cards Grid */}
         <main className="w-full md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBooks.length > 0 ? (
             filteredBooks.map((book) => (
