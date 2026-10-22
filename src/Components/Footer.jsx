@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center text-xs text-gray-400 mt-6 border-t pt-4">
-        © 2026 BookHaven. All rights reserved[cite: 1].
+        © 2026 BookHaven. All rights reserved.
       </div>
     </footer>
   );
