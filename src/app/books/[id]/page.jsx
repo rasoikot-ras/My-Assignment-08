@@ -5,18 +5,22 @@ import toast from "react-hot-toast";
 import { useSession } from "@/lib/auth-client";
 
 export default function BookDetailsPage() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id;
   const router = useRouter();
   const { data: session } = useSession();
   const [book, setBook] = useState(null);
 
   useEffect(() => {
+    if (!id) return;
+    
     fetch("/books.json")
       .then((res) => res.json())
       .then((data) => {
-        const found = data.find((item) => item.id === id);
+        const found = data.find((item) => String(item.id) === String(id));
         setBook(found || null);
-      });
+      })
+      .catch((err) => console.error("Error fetching books:", err));
   }, [id]);
 
   const handleBorrow = () => {
