@@ -5,7 +5,7 @@ import { MongoClient } from "mongodb";
 const uri = process.env.MONGODB_URI;
 
 if (!uri) {
-  throw new Error("Please add MONGODB_URI to .env.local");
+  throw new Error("Please add MONGODB_URI to your environment variables.");
 }
 
 let client;
@@ -22,10 +22,10 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
-const db = (await clientPromise).db("bookhaven");
-
 export const auth = betterAuth({
-  database: mongodbAdapter(db),
+  database: mongodbAdapter(clientPromise),
+  baseURL: process.env.BETTER_AUTH_URL,
+  secret: process.env.BETTER_AUTH_SECRET,
   emailAndPassword: {
     enabled: true,
   },
