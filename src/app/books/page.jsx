@@ -1,82 +1,68 @@
 "use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useEffect, useState, Suspense } from "react";
+import { useParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useSession } from "@/lib/auth-client";
 
-export default function AllBooksPage() {
-  const [books, setBooks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+function BookDetailsContent() {
+  const { id } = useParams();
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [book, setBook] = useState(null);
 
   useEffect(() => {
+    if (!id) return;
+    
     fetch("/books.json")
       .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
+      .then((data) => {
+        const found = data.find((item) => String(item.id) === String(id));
+        setBook(found || null);
+      })
+      .catch((err) => console.error("Error fetching books:", err));
+  }, [id]);
 
-  const categories = ["All", "Story", "Tech", "Science"];
+  const handleBorrow = () => {
+    if (!session) {
+      toast.error("Please login to borrow this book!");
+      router.push("/login");
+      return;
+    }
+    toast.success(`Successfully borrowed "${book?.title}"!`);
+  };
 
-  const filteredBooks = books.filter((book) => {
-    const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || book.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  if (!book) return <div className="text-center py-20 text-sm">Loading...</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Search Bar */}
-      <div className="mb-8 flex justify-center">
-        <input
-          type="text"
-          placeholder="Search books by title..."
-          className="border px-4 py-2 rounded-md w-full max-w-xl text-sm"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+    <div className="max-w-4xl mx-auto px-4 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white border p-6 rounded-xl shadow-sm">
+        <div>
+          <img src={book.image_url} alt={book.title} className="w-full h-96 object-cover rounded-lg" />
+        </div>
+        <div className="space-y-4">
+          <span className="text-xs bg-gray-100 px-2 py-1 rounded font-medium">{book.category}</span>
+          <h1 className="text-2xl font-black">{book.title}</h1>
+          <p className="text-sm text-gray-600 font-medium">Author: {book.author}</p>
+          <p className="text-sm text-gray-700">{book.description}</p>
+          <p className="text-sm font-semibold text-black">Available Quantity: {book.available_quantity} copies left</p>
 
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Category Sidebar */}
-        <aside className="w-full md:w-1/4 bg-gray-50 p-4 rounded-lg h-fit border">
-          <h3 className="font-bold text-base mb-4">Categories</h3>
-          <ul className="space-y-2 text-sm">
-            {categories.map((cat) => (
-              <li key={cat}>
-                <button
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`w-full text-left px-3 py-2 rounded-md transition ${
-                    selectedCategory === cat ? "bg-black text-white font-medium" : "hover:bg-gray-200"
-                  }`}
-                >
-                  {cat}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        {/* Book Cards Grid */}
-        <main className="w-full md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredBooks.length > 0 ? (
-            filteredBooks.map((book) => (
-              <div key={book.id} className="border rounded-lg overflow-hidden shadow-sm bg-white">
-                <img src={book.image_url} alt={book.title} className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded font-medium">{book.category}</span>
-                  <h2 className="font-bold text-base mt-2">{book.title}</h2>
-                  <p className="text-xs text-gray-500 mt-1">By {book.author}</p>
-                  <div className="mt-4 flex justify-end">
-                    <Link href={`/books/${book.id}`} className="bg-black text-white px-3 py-1 rounded text-xs">
-                      Details
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-500 py-10">No books found.</p>
-          )}
-        </main>
+          <button
+            onClick={handleBorrow}
+            disabled={book.available_quantity === 0}
+            className="w-full bg-black text-white py-2 rounded-md text-sm font-medium mt-4 hover:bg-gray-800 transition"
+          >
+            {book.available_quantity > 0 ? "Borrow This Book" : "Out of Stock"}
+          </button>
+        </div>
       </div>
     </div>
+  );
+}
+
+export default function BookDetailsPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-20 text-sm">Loading...</div>}>
+      <BookDetailsContent />
+    </Suspense>
   );
 }
