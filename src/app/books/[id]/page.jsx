@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSession } from "@/lib/auth-client";
 
-export default function BookDetailsPage() {
+function BookDetailsContent() {
   const params = useParams();
   const id = params?.id;
   const router = useRouter();
@@ -57,5 +57,13 @@ export default function BookDetailsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BookDetailsPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-20 text-sm">Loading...</div>}>
+      <BookDetailsContent />
+    </Suspense>
   );
 }
