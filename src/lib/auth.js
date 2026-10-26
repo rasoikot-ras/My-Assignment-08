@@ -24,8 +24,8 @@ if (process.env.NODE_ENV === "development") {
 
 export const auth = betterAuth({
   database: mongodbAdapter(clientPromise),
-  baseURL: process.env.BETTER_AUTH_URL,
-  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-49n1o79pe-ra-soikot-s-projects.vercel.app",
+  secret: process.env.BETTER_AUTH_SECRET || "N9MszhOBTv8Z4wT5FiRcSQGvGntAcNJd",
   emailAndPassword: {
     enabled: true,
   },
