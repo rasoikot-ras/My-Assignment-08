@@ -9,15 +9,13 @@ let clientPromise = client.connect();
 
 export const auth = betterAuth({
   database: mongodbAdapter(clientPromise),
-  
-  baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-49n1o79pe-ra-soikot-s-projects.vercel.app",
+  baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-ist3bzkb9-ra-soikot-s-projects.vercel.app",
   secret: process.env.BETTER_AUTH_SECRET || "N9MszhOBTv8Z4wT5FiRcSQGvGntAcNJd",
   
-  
+ 
   trustedOrigins: [
     "https://my-assignment-08-49n1o79pe-ra-soikot-s-projects.vercel.app",
-    "https://my-assignment-08-git-main-ra-soikot-s-projects.vercel.app",
-    
+    "https://my-assignment-08-ist3bzkb9-ra-soikot-s-projects.vercel.app",
     "http://localhost:3000"
   ],
 
