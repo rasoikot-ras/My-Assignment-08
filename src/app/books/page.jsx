@@ -33,7 +33,7 @@ export default function AllBooksPage() {
     return (
       <div className="flex items-center h-[85vh] justify-center gap-2">
         <h2 className="font-bold text-lg">Loading</h2>
-        <span className="loading loading-infinity loading-xl"></span>
+        <div className="w-10 h-10 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
