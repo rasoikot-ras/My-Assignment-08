@@ -18,15 +18,20 @@ export default function AllBooksPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  
   const filteredBooks = books.filter((book) => {
     const matchesSearch = book.title.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = selectedCategory === "All" || book.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
+ 
   if (loading) {
-    return <div className="text-center py-20 text-sm font-medium">Loading books...</div>;
+    return (
+      <div className="flex items-center h-[85vh] justify-center gap-2">
+        <h2 className="font-bold text-lg">Loading</h2>
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
   }
 
   const categories = ["All", "Story", "Tech", "Science"];
