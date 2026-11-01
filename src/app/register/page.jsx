@@ -17,9 +17,15 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await signUp.email({ name, email, password, image: photoUrl });
-      if (res.error) {
-        toast.error(res.error.message || "Registration failed!");
+      const { data, error } = await signUp.email({
+        name,
+        email,
+        password,
+        image: photoUrl,
+      });
+
+      if (error) {
+        toast.error(error.message || "Registration failed!");
       } else {
         toast.success("Registration Successful! Please Login.");
         router.push("/login");
@@ -46,26 +52,57 @@ export default function RegisterPage() {
         <form onSubmit={handleRegister} className="space-y-4 text-sm">
           <div>
             <label className="block font-medium mb-1">Name</label>
-            <input type="text" className="w-full border px-3 py-2 rounded-md" value={name} onChange={(e) => setName(e.target.value)} required />
+            <input 
+              type="text" 
+              className="w-full border px-3 py-2 rounded-md" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+            />
           </div>
           <div>
             <label className="block font-medium mb-1">Email</label>
-            <input type="email" className="w-full border px-3 py-2 rounded-md" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input 
+              type="email" 
+              className="w-full border px-3 py-2 rounded-md" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+            />
           </div>
           <div>
             <label className="block font-medium mb-1">Photo URL</label>
-            <input type="url" className="w-full border px-3 py-2 rounded-md" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} required />
+            <input 
+              type="url" 
+              className="w-full border px-3 py-2 rounded-md" 
+              value={photoUrl} 
+              onChange={(e) => setPhotoUrl(e.target.value)} 
+              required 
+            />
           </div>
           <div>
-            <label className="block font-medium mb-1">Password</label>
-            <input type="password" className="w-full border px-3 py-2 rounded-md" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <label className="block font-medium mb-1">Password (Min 6 chars)</label>
+            <input 
+              type="password" 
+              className="w-full border px-3 py-2 rounded-md" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
           </div>
-          <button type="submit" className="w-full bg-black text-white py-2 rounded-md font-medium" disabled={loading}>
+          <button 
+            type="submit" 
+            className="w-full bg-black text-white py-2 rounded-md font-medium" 
+            disabled={loading}
+          >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
         <div className="divider my-4 text-xs text-gray-400 text-center">OR</div>
-        <button onClick={handleGoogleLogin} className="w-full border py-2 rounded-md font-medium text-sm">
+        <button 
+          onClick={handleGoogleLogin} 
+          className="w-full border py-2 rounded-md font-medium text-sm"
+        >
           Continue with Google
         </button>
         <p className="text-xs text-center mt-4">
