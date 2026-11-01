@@ -28,8 +28,7 @@ export default function AllBooksPage() {
   if (loading) {
     return (
       <div className="flex items-center h-[85vh] justify-center gap-2">
-        <h2 className="font-bold text-lg">Loading</h2>
-        <span className="loading loading-dots loading-xl"></span>
+        <span className="loading loading-bars loading-xl"></span>
       </div>
     );
   }
