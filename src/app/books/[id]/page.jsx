@@ -42,12 +42,14 @@ function BookDetailsContent() {
     toast.success(`Successfully borrowed "${book?.title}"!`);
   };
 
-  // যদি ডেটা লোড হতে থাকে
+  
   if (loading) {
-    return <div className="text-center py-20 text-sm font-medium text-gray-500">Loading book details...</div>;
+    return <div className="text-center py-20 text-sm font-medium text-gray-500">
+        <span className="loading loading-bars loading-xl"></span>
+    </div>;
   }
 
-  // যদি লোডিং শেষ হওয়ার পরেও বই না পাওয়া যায়
+  
   if (!book) {
     return <div className="text-center py-20 text-sm font-semibold text-red-500">Book not found!</div>;
   }
@@ -80,7 +82,7 @@ function BookDetailsContent() {
 
 export default function BookDetailsPage() {
   return (
-    <Suspense fallback={<div className="text-center py-20 text-sm">Loading...</div>}>
+    <Suspense fallback={<div className="text-center py-20 text-sm"><span className="loading loading-bars loading-xl"></span></div>}>
       <BookDetailsContent />
     </Suspense>
   );
