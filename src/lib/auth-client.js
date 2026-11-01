@@ -4,5 +4,5 @@ export const authClient = createAuthClient({
   baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-sigma.vercel.app"
 });
 
-export const { signIn, signOut, useSession } = authClient;
-export const signUp = authClient.signUp;
+
+export const { signIn, signUp, signOut, useSession } = authClient;
