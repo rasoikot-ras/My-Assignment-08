@@ -44,9 +44,7 @@ function BookDetailsContent() {
 
   
   if (loading) {
-    return <div className="text-center py-20 text-sm font-medium text-gray-500">
-        <span className="loading loading-bars loading-xl"></span>
-    </div>;
+    return <div className="text-center py-20 text-sm font-medium text-gray-500">Loading book details...</div>;
   }
 
   
@@ -82,7 +80,7 @@ function BookDetailsContent() {
 
 export default function BookDetailsPage() {
   return (
-    <Suspense fallback={<div className="text-center py-20 text-sm"><span className="loading loading-bars loading-xl"></span></div>}>
+    <Suspense fallback={<div className="text-center py-20 text-sm">Loading...</div>}>
       <BookDetailsContent />
     </Suspense>
   );

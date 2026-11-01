@@ -9,13 +9,18 @@ export default function AllBooksPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
-    fetch("/books.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setBooks(data);
-      })
-      .catch((err) => console.error("Error loading books:", err))
-      .finally(() => setLoading(false));
+    
+    const timer = setTimeout(() => {
+      fetch("/books.json")
+        .then((res) => res.json())
+        .then((data) => {
+          setBooks(data);
+        })
+        .catch((err) => console.error("Error loading books:", err))
+        .finally(() => setLoading(false));
+    }, 800);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const filteredBooks = books.filter((book) => {
@@ -24,11 +29,11 @@ export default function AllBooksPage() {
     return matchesSearch && matchesCategory;
   });
 
- 
   if (loading) {
     return (
       <div className="flex items-center h-[85vh] justify-center gap-2">
-        <span className="loading loading-bars loading-xl"></span>
+        <h2 className="font-bold text-lg">Loading</h2>
+        <span className="loading loading-infinity loading-xl"></span>
       </div>
     );
   }
