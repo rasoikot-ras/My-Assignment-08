@@ -1,7 +1,7 @@
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-sigma.vercel.app"
+  baseURL: typeof window !== "undefined" ? window.location.origin : undefined,
 });
 
 
