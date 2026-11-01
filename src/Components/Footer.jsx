@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-600">
         <div>
           <h3 className="font-black text-black text-base mb-1">BookHaven</h3>
-          <p className="text-xs">Digital library platform for seamless book borrowing[cite: 1].</p>
+          <p className="text-xs">Digital library platform for seamless book borrowing.</p>
         </div>
 
         <div className="flex flex-col items-center md:items-start">

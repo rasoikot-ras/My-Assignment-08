@@ -1,86 +1,63 @@
 "use client";
-import { useEffect, useState, Suspense } from "react";
-import { useParams, useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { useSession } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-function BookDetailsContent() {
-  const { id } = useParams();
-  const router = useRouter();
-  const { data: session } = useSession();
-  const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true); 
+export default function AllBooksPage() {
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (!id) return;
-    
     fetch("/books.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch books data");
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        const found = data.find((item) => String(item.id) === String(id));
-        setBook(found || null);
+        setBooks(data);
       })
-      .catch((err) => {
-        console.error("Error fetching books:", err);
-        toast.error("Could not load book details.");
-      })
-      .finally(() => {
-        setLoading(false); 
-      });
-  }, [id]);
+      .catch((err) => console.error("Error loading books:", err))
+      .finally(() => setLoading(false));
+  }, []);
 
-  const handleBorrow = () => {
-    if (!session) {
-      toast.error("Please login to borrow this book!");
-      router.push("/login");
-      return;
-    }
-    toast.success(`Successfully borrowed "${book?.title}"!`);
-  };
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(search.toLowerCase())
+  );
 
-  
   if (loading) {
-    return <div className="text-center py-20 text-sm font-medium text-gray-500">Loading book details...</div>;
-  }
-
-  
-  if (!book) {
-    return <div className="text-center py-20 text-sm font-semibold text-red-500">Book not found!</div>;
+    return <div className="text-center py-20 text-sm font-medium">Loading books...</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white border p-6 rounded-xl shadow-sm">
-        <div>
-          <img src={book.image_url} alt={book.title} className="w-full h-96 object-cover rounded-lg" />
-        </div>
-        <div className="space-y-4">
-          <span className="text-xs bg-gray-100 px-2 py-1 rounded font-medium">{book.category}</span>
-          <h1 className="text-2xl font-black">{book.title}</h1>
-          <p className="text-sm text-gray-600 font-medium">Author: {book.author}</p>
-          <p className="text-sm text-gray-700">{book.description}</p>
-          <p className="text-sm font-semibold text-black">Available Quantity: {book.available_quantity} copies left</p>
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold mb-6 text-center">All Books</h1>
+      
+      {/* Search Bar */}
+      <div className="mb-8 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search books by title..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full max-w-md border px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+        />
+      </div>
 
-          <button
-            onClick={handleBorrow}
-            disabled={book.available_quantity === 0}
-            className="w-full bg-black text-white py-2 rounded-md text-sm font-medium mt-4 hover:bg-gray-800 transition disabled:bg-gray-400"
-          >
-            {book.available_quantity > 0 ? "Borrow This Book" : "Out of Stock"}
-          </button>
-        </div>
+      {/* Book Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredBooks.map((book) => (
+          <div key={book.id} className="border bg-white rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <img src={book.image_url} alt={book.title} className="w-full h-48 object-cover rounded-md mb-3" />
+              <h2 className="font-bold text-lg line-clamp-1">{book.title}</h2>
+              <p className="text-sm text-gray-600">Author: {book.author}</p>
+            </div>
+            <Link
+              href={`/books/${book.id}`}
+              className="mt-4 block text-center bg-black text-white py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition"
+            >
+              Details
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
-  );
-}
-
-export default function BookDetailsPage() {
-  return (
-    <Suspense fallback={<div className="text-center py-20 text-sm">Loading...</div>}>
-      <BookDetailsContent />
-    </Suspense>
   );
 }
