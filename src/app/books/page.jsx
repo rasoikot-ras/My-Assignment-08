@@ -9,17 +9,27 @@ function BookDetailsContent() {
   const router = useRouter();
   const { data: session } = useSession();
   const [book, setBook] = useState(null);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     if (!id) return;
     
     fetch("/books.json")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch books data");
+        return res.json();
+      })
       .then((data) => {
         const found = data.find((item) => String(item.id) === String(id));
         setBook(found || null);
       })
-      .catch((err) => console.error("Error fetching books:", err));
+      .catch((err) => {
+        console.error("Error fetching books:", err);
+        toast.error("Could not load book details.");
+      })
+      .finally(() => {
+        setLoading(false); 
+      });
   }, [id]);
 
   const handleBorrow = () => {
@@ -31,7 +41,15 @@ function BookDetailsContent() {
     toast.success(`Successfully borrowed "${book?.title}"!`);
   };
 
-  if (!book) return <div className="text-center py-20 text-sm">Loading...</div>;
+  
+  if (loading) {
+    return <div className="text-center py-20 text-sm font-medium text-gray-500">Loading book details...</div>;
+  }
+
+  
+  if (!book) {
+    return <div className="text-center py-20 text-sm font-semibold text-red-500">Book not found!</div>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -49,7 +67,7 @@ function BookDetailsContent() {
           <button
             onClick={handleBorrow}
             disabled={book.available_quantity === 0}
-            className="w-full bg-black text-white py-2 rounded-md text-sm font-medium mt-4 hover:bg-gray-800 transition"
+            className="w-full bg-black text-white py-2 rounded-md text-sm font-medium mt-4 hover:bg-gray-800 transition disabled:bg-gray-400"
           >
             {book.available_quantity > 0 ? "Borrow This Book" : "Out of Stock"}
           </button>

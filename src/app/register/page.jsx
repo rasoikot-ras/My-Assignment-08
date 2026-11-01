@@ -81,7 +81,7 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label className="block font-medium mb-1">Password (Min 6 chars)</label>
+            <label className="block font-medium mb-1">Password</label>
             <input 
               type="password" 
               className="w-full border px-3 py-2 rounded-md" 
