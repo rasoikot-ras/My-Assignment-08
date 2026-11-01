@@ -14,11 +14,12 @@ const client = new MongoClient(uri);
 const db = client.db("BookHaven");
 
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-49n1o79pe-ra-soikot-s-projects.vercel.app",
+  
+  baseURL: process.env.BETTER_AUTH_URL || "https://my-assignment-08-sigma.vercel.app",
   secret: process.env.BETTER_AUTH_SECRET || "N9MszhOBTv8Z4wT5FiRcSQGvGntAcNJd",
 
   trustedOrigins: [
-    "https://my-assignment-08-49n1o79pe-ra-soikot-s-projects.vercel.app",
+    "https://my-assignment-08-sigma.vercel.app",
     "http://localhost:3000",
     (origin) => origin.endsWith(".vercel.app")
   ],
