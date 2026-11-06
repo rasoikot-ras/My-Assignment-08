@@ -7,7 +7,7 @@ export async function proxy(request) {
     headers: await headers(),
   });
 
-  
+ 
   if (!session) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -15,7 +15,8 @@ export async function proxy(request) {
   return NextResponse.next();
 }
 
-
 export const config = {
-  matcher: ["/profile/:path*"],
+  matcher: [
+    "/profile/:path*",
+  ],
 };

@@ -25,7 +25,15 @@ const Navbar = () => {
             <div className="flex items-center gap-3">
               <span className="font-semibold text-sm">{session.user?.name}</span>
               <button
-                onClick={() => signOut()}
+                onClick={async () => {
+                  await signOut({
+                    fetchOptions: {
+                      onSuccess: () => {
+                        window.location.href = "/login";
+                      },
+                    },
+                  });
+                }}
                 className="bg-red-500 text-white px-3 py-1.5 rounded-md text-xs font-medium hover:bg-red-600 transition"
               >
                 Logout
