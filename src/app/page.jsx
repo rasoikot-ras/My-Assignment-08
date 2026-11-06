@@ -25,7 +25,7 @@ export default function HomePage() {
 
       <section className="bg-gray-100 py-2.5 px-4 rounded-md text-xs font-medium overflow-hidden">
         <div className="whitespace-nowrap animate-pulse">
-          📢 New Arrivals: Clean Code & The Alchemist | Special Discount on Annual Memberships Available Now!
+           New Arrivals: Clean Code & The Alchemist | Special Discount on Annual Memberships Available Now!
         </div>
       </section>
 
@@ -52,9 +52,9 @@ export default function HomePage() {
       <section className="border p-6 rounded-xl bg-gray-50 text-center">
         <h2 className="text-xl font-bold mb-4">Why Choose Our Library?</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-          <div>⚡ Instant Digital Borrowing</div>
-          <div>🛡️ Secure Authentication</div>
-          <div>📚 Diverse Categories</div>
+          <div> Instant Digital Borrowing</div>
+          <div> Secure Authentication</div>
+          <div> Diverse Categories</div>
         </div>
       </section>
 
