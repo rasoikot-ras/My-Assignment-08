@@ -28,7 +28,7 @@ const Navbar = () => {
                 onClick={() => signOut()}
                 className="bg-red-500 text-white px-3 py-1.5 rounded-md text-xs font-medium hover:bg-red-600 transition"
               >
-                Logout.
+                Logout
               </button>
             </div>
           ) : (
