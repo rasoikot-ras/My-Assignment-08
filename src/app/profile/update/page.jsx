@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { MdOutlineBrowserUpdated } from "react-icons/md";
 
 export default function UpdateProfilePage() {
   const router = useRouter();
@@ -35,13 +36,18 @@ export default function UpdateProfilePage() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="bg-white border p-6 rounded-xl shadow-sm">
-        <h2 className="text-xl font-bold mb-6 text-center">Update Information</h2>
+        
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <MdOutlineBrowserUpdated className="w-6 h-6 text-black" />
+          <h2 className="text-xl font-bold">Update Information</h2>
+        </div>
+
         <form onSubmit={handleUpdate} className="space-y-4 text-sm">
           <div>
             <label className="block font-medium mb-1">Name</label>
             <input
               type="text"
-              className="w-full border px-3 py-2 rounded-md"
+              className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -51,13 +57,17 @@ export default function UpdateProfilePage() {
             <label className="block font-medium mb-1">Image URL</label>
             <input
               type="url"
-              className="w-full border px-3 py-2 rounded-md"
+              className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="w-full bg-black text-white py-2 rounded-md font-medium" disabled={loading}>
+          <button 
+            type="submit" 
+            className="w-full bg-black text-white py-2 rounded-md font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2" 
+            disabled={loading}
+          >
             {loading ? "Updating..." : "Update Information"}
           </button>
         </form>

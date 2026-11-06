@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { IoSearch } from "react-icons/io5";
 
 export default function AllBooksPage() {
   const [books, setBooks] = useState([]);
@@ -9,7 +10,6 @@ export default function AllBooksPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
-    
     const timer = setTimeout(() => {
       fetch("/books.json")
         .then((res) => res.json())
@@ -44,15 +44,20 @@ export default function AllBooksPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-6 text-center">All Books</h1>
       
-      {/* Search Bar */}
+      {/* Search Bar with Icon */}
       <div className="mb-8 flex justify-center">
-        <input
-          type="text"
-          placeholder="Search books by title..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-md border px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black text-sm"
-        />
+        <div className="relative w-full max-w-md">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+            <IoSearch className="w-5 h-5" />
+          </span>
+          <input
+            type="text"
+            placeholder="Search books by title..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full border pl-10 pr-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black text-sm"
+          />
+        </div>
       </div>
 
       {/* Main Layout with Sidebar and Book Grid */}
