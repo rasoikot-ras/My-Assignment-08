@@ -1,23 +1,62 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
+import { IoBookOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const pathname = usePathname(); 
 
   return (
-    <div className="border-b px-4 bg-white">
+    <div className="border-b px-4 bg-white sticky top-0 z-50">
       <nav className="flex justify-between items-center py-3 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-2">
-          <Link href={"/"} className="font-black text-xl">
+          <Link href={"/"} className="flex items-center gap-2 font-black text-xl text-black hover:opacity-80 transition">
+            <IoBookOutline className="w-6 h-6 text-black" />
             BookHaven
           </Link>
         </div>
 
         <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <li><Link href={"/"}>Home</Link></li>
-          <li><Link href={"/books"}>All Books</Link></li>
-          {session && <li><Link href={"/profile"}>My Profile</Link></li>}
+          <li>
+            <Link 
+              href={"/"} 
+              className={`transition-colors pb-1 ${
+                pathname === "/" 
+                  ? "text-black font-bold border-b-2 border-black" 
+                  : "text-gray-600 hover:text-black"
+              }`}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link 
+              href={"/books"} 
+              className={`transition-colors pb-1 ${
+                pathname === "/books" 
+                  ? "text-black font-bold border-b-2 border-black" 
+                  : "text-gray-600 hover:text-black"
+              }`}
+            >
+              All Books
+            </Link>
+          </li>
+          {session && (
+            <li>
+              <Link 
+                href={"/profile"} 
+                className={`transition-colors pb-1 ${
+                  pathname === "/profile" || pathname.startsWith("/profile/") 
+                    ? "text-black font-bold border-b-2 border-black" 
+                    : "text-gray-600 hover:text-black"
+                }`}
+              >
+                My Profile
+              </Link>
+            </li>
+          )}
         </ul>
 
         <div className="flex items-center gap-4 text-sm">
