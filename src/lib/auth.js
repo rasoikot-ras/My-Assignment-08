@@ -9,7 +9,7 @@ const db = client.db("bookhaven");
 export const auth = betterAuth({
   database: mongodbAdapter(db),
   baseURL: "https://my-assignment-08-sigma.vercel.app",
-  secret: "N9MszhOBTv8Z4wT5FiRcSQGvGntAcNJd",
+  secret: process.env.BETTER_AUTH_SECRET,
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 8, 
